@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -40,11 +41,11 @@ public class ProductoRepositoryAdapter implements ProductoRepositoryPort {
         return ProductoMapper.toModel(repositoryJpa.save(entity));
     }
     @Override
-    public Producto findById(Long id) {
-        ProductoEntity entity = repositoryJpa.findById(id)
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
-        return ProductoMapper.toModel(entity);
+    public Optional<Producto> findById(Long id) {
+        return repositoryJpa.findById(id)
+                .map(ProductoMapper::toModel);
     }
+
 
     @Override
     public void delete(Long id) {

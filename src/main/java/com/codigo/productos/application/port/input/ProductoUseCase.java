@@ -9,4 +9,6 @@ public interface ProductoUseCase {
     List<Producto> listarProductos();
     Producto editarProducto(Long id, Producto producto);
     void eliminarProducto(Long id);
+    Producto buscarProductoPorId(Long id);
+
 }

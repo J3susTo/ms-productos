@@ -38,4 +38,11 @@ public class ProductoController {
         productoUseCase.eliminarProducto(id);
         return ResponseEntity.noContent().build();
     }
+    // NUEVO ENDPOINT
+    @GetMapping("/verificar/{id}")
+    public ResponseEntity<Producto> verificarProducto(@PathVariable Long id) {
+        Producto producto = productoUseCase.buscarProductoPorId(id); // Debes implementar esto en tu UseCase
+        return ResponseEntity.ok(producto);
+    }
+
 }

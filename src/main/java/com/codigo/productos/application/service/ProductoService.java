@@ -26,18 +26,24 @@ public class ProductoService implements ProductoUseCase {
 
     @Override
     public Producto editarProducto(Long id, Producto producto) {
-        Producto existingProduct = productoRepository.findById(id);
-        if (existingProduct != null) {
-            existingProduct.setNombre(producto.getNombre());
-            existingProduct.setPrecio(producto.getPrecio());
-            existingProduct.setCategoria(producto.getCategoria());
-            return productoRepository.save(existingProduct);
-        }
-        return null; // Error: Producto no encontrado
+        return productoRepository.findById(id)
+                .map(existingProduct -> {
+                    existingProduct.setNombre(producto.getNombre());
+                    existingProduct.setPrecio(producto.getPrecio());
+                    existingProduct.setCategoria(producto.getCategoria());
+                    return productoRepository.save(existingProduct);
+                })
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado con id: " + id));
     }
 
     @Override
     public void eliminarProducto(Long id) {
         productoRepository.delete(id);
+    }
+
+    @Override
+    public Producto buscarProductoPorId(Long id) {
+        return productoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado con id: " + id));
     }
 }
