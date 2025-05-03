@@ -2,10 +2,7 @@ package com.codigo.productos.infrastructure.controller;
 
 import com.codigo.productos.application.port.input.ProductoUseCase;
 import com.codigo.productos.domain.model.Producto;
-import com.codigo.productos.infrastructure.client.AuthClient;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

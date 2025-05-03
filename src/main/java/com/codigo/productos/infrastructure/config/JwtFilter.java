@@ -1,6 +1,6 @@
 package com.codigo.productos.infrastructure.config;
 
-import com.codigo.productos.infrastructure.client.AuthClient;
+import com.codigo.productos.infrastructure.client.AuthFeignClient;
 import com.codigo.productos.infrastructure.client.dto.UsuarioAuthDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,12 +23,11 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtFilter.class);
 
-    private final AuthClient authClient;
+    private final AuthFeignClient authFeignClient;
 
-    public JwtFilter(AuthClient authClient) {
-        this.authClient = authClient;
+    public JwtFilter(AuthFeignClient authFeignClient) {
+        this.authFeignClient = authFeignClient;
     }
-
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -41,7 +40,8 @@ public class JwtFilter extends OncePerRequestFilter {
         if (token != null) {
             logger.info("Token encontrado, intentando validar");
             try {
-                UsuarioAuthDTO usuario = authClient.validateToken(token);
+                UsuarioAuthDTO usuario = authFeignClient.validateToken("Bearer " + token);
+
                 if (usuario != null) {
                     logger.info("Token validado exitosamente para usuario: {}", usuario.getEmail());
 
