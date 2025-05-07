@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // CAMBIO 1: Los paths deben coincidir con el @RequestMapping del controlador
                         // Antes tenías /apis/codigo/productos pero el controlador usa solo /productos
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/productos").hasAnyRole("ADMIN", "SUPERADMIN")
                         .requestMatchers(HttpMethod.POST, "/productos").hasAnyRole("ADMIN", "SUPERADMIN")
                         .requestMatchers(HttpMethod.PUT, "/productos/{id}").hasAnyRole("ADMIN", "SUPERADMIN")

@@ -33,6 +33,12 @@ public class JwtFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
+        // ➕ Ignorar solicitudes OPTIONS (preflight)
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        // ➕ Ignorar solicitudes OPTIONS (preflight)
         logger.info("Procesando solicitud a: {}", request.getRequestURI());
 
         String token = getTokenFromRequest(request);

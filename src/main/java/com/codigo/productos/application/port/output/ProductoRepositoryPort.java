@@ -11,4 +11,6 @@ public interface ProductoRepositoryPort {
     Producto update(Long id, Producto producto); // <- Agregado
     void delete(Long id);
     Optional<Producto> findById(Long id);
+    List<Producto> findByNombreContainingIgnoreCase(String nombre);
+
 }

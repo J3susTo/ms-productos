@@ -46,6 +46,13 @@ public class ProductoRepositoryAdapter implements ProductoRepositoryPort {
                 .map(ProductoMapper::toModel);
     }
 
+    @Override
+    public List<Producto> findByNombreContainingIgnoreCase(String nombre) {
+        return repositoryJpa.findByNombreContainingIgnoreCase(nombre).stream()
+                .map(ProductoMapper::toModel)
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     public void delete(Long id) {

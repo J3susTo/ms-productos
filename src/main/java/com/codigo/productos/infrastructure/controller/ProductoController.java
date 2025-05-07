@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:8085")
 @RestController
 @RequestMapping("/productos")
 @RequiredArgsConstructor
@@ -41,5 +42,9 @@ public class ProductoController {
         Producto producto = productoUseCase.buscarProductoPorId(id); // Debes implementar esto en tu UseCase
         return ResponseEntity.ok(producto);
     }
-
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Producto>> buscarPorNombre(@RequestParam String query) {
+        List<Producto> productos = productoUseCase.buscarPorNombre(query);
+        return ResponseEntity.ok(productos);
+    }
 }

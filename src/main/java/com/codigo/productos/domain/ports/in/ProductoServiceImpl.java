@@ -17,10 +17,8 @@ public class ProductoServiceImpl implements ProductoService {
     public void algunaOperacion(String token) {
         try {
             UsuarioAuthDTO usuario = authFeignClient.validateToken("Bearer " + token);
-            // Lógica con el usuario autenticado
             System.out.println("Usuario autenticado: " + usuario.getUsername());
         } catch (Exception e) {
-            // Manejo básico de errores
             System.err.println("Error al validar token: " + e.getMessage());
             throw new RuntimeException("Token inválido o servicio de autenticación no disponible");
         }
